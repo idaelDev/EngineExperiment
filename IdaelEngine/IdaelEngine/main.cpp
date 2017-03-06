@@ -1,60 +1,193 @@
-#include <SDL2/SDL.h>
+// Headerphile.com OpenGL Tutorial part 1
+// A Hello World in the world of OpenGL ( creating a simple windonw and setting background color )
+// Source code is an C++ adaption / simplicication of : https://www.opengl.org/wiki/Tutorial1:_Creating_a_Cross_Platform_OpenGL_3.2_Context_in_SDL_(C_/_SDL)
+// Compile : clang++ main.cpp -lGL -lSDL2 -std=c++11 -o Test
+
+// C++ Headers
+#include <string>
 #include <iostream>
 
-int main(int argc, char* args[])
+// OpenGL / glew Headers
+#define GL3_PROTOTYPES 1
+#include <GL/glew.h>
+
+// SDL2 Headers
+#include <SDL2/SDL.h>
+
+std::string programName = "Headerphile SDL2 - OpenGL thing";
+
+// Our SDL_Window ( just like with SDL2 wihout OpenGL)
+SDL_Window *mainWindow;
+
+// Our opengl context handle
+SDL_GLContext mainContext;
+
+bool SetOpenGLAttributes();
+void PrintSDL_GL_Attributes();
+void CheckSDLError(int line);
+void RunGame();
+void Cleanup();
+
+
+bool Init()
 {
-	int posX = 100;
-	int posY = 200;
-	int sizeX = 300;
-	int sizeY = 400;
-	SDL_Window* window;
-	SDL_Renderer* renderer;
-
-	// Initialize SDL
-	// ==========================================================
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+	// Initialize SDL's Video subsystem
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		// Something failed, print error and exit.
-		std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
-		return -1;
+		std::cout << "Failed to init SDL\n";
+		return false;
 	}
 
-	// Create and init the window
-	// ==========================================================
-	window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
+	// Create our window centered at 512x512 resolution
+	mainWindow = SDL_CreateWindow(programName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+		512, 512, SDL_WINDOW_OPENGL);
 
-	if (window == nullptr)
+	// Check that everything worked out okay
+	if (!mainWindow)
 	{
-		std::cout << "Failed to create window : " << SDL_GetError();
-		return -1;
+		std::cout << "Unable to create window\n";
+		CheckSDLError(__LINE__);
+		return false;
 	}
 
-	// Create and init the renderer
-	// ==========================================================
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	// Create our opengl context and attach it to our window
+	mainContext = SDL_GL_CreateContext(mainWindow);
 
-	if (renderer == nullptr)
-	{
-		std::cout << "Failed to create renderer : " << SDL_GetError();
+	SetOpenGLAttributes();
+
+	// This makes our buffer swap syncronized with the monitor's vertical refresh
+	SDL_GL_SetSwapInterval(1);
+
+	// Init GLEW
+	// Apparently, this is needed for Apple. Thanks to Ross Vander for letting me know
+#ifndef __APPLE__
+	glewExperimental = GL_TRUE;
+	glewInit();
+#endif
+
+	return true;
+}
+
+bool SetOpenGLAttributes()
+{
+	// Set our OpenGL version.
+	// SDL_GL_CONTEXT_CORE gives us only the newer version, deprecated functions are disabled
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
+	// 3.2 is part of the modern versions of OpenGL, but most video cards whould be able to run it
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+
+	// Turn on double buffering with a 24bit Z buffer.
+	// You may need to change this to 16 or 32 for your system
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+	return true;
+}
+
+int main(int argc, char *argv[])
+{
+	if (!Init())
 		return -1;
+
+	// Clear our buffer with a black background
+	// This is the same as :
+	// 		SDL_SetRenderDrawColor(&renderer, 255, 0, 0, 255);
+	// 		SDL_RenderClear(&renderer);
+	//
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+	SDL_GL_SwapWindow(mainWindow);
+
+	RunGame();
+
+	Cleanup();
+
+	return 0;
+}
+
+void RunGame()
+{
+	bool loop = true;
+
+	while (loop)
+	{
+		SDL_Event event;
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT)
+				loop = false;
+
+			if (event.type == SDL_KEYDOWN)
+			{
+				switch (event.key.keysym.sym)
+				{
+				case SDLK_ESCAPE:
+					loop = false;
+					break;
+				case SDLK_r:
+					// Cover with red and update
+					glClearColor(1.0, 0.0, 0.0, 1.0);
+					glClear(GL_COLOR_BUFFER_BIT);
+					SDL_GL_SwapWindow(mainWindow);
+					break;
+				case SDLK_g:
+					// Cover with green and update
+					glClearColor(0.0, 1.0, 0.0, 1.0);
+					glClear(GL_COLOR_BUFFER_BIT);
+					SDL_GL_SwapWindow(mainWindow);
+					break;
+				case SDLK_b:
+					// Cover with blue and update
+					glClearColor(0.0, 0.0, 1.0, 1.0);
+					glClear(GL_COLOR_BUFFER_BIT);
+					SDL_GL_SwapWindow(mainWindow);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+		// Swap our back buffer to the front
+		// This is the same as :
+		// 		SDL_RenderPresent(&renderer);
 	}
+}
 
-	// Render something
-	// ==========================================================
+void Cleanup()
+{
+	// Delete our OpengL context
+	SDL_GL_DeleteContext(mainContext);
 
-	// Set size of renderer to the same as window
-	SDL_RenderSetLogicalSize(renderer, sizeX, sizeY);
+	// Destroy our window
+	SDL_DestroyWindow(mainWindow);
 
-	// Set color of renderer to red
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	// Shutdown SDL 2
+	SDL_Quit();
+}
 
-	// Clear the window and make it all red
-	SDL_RenderClear(renderer);
+void CheckSDLError(int line = -1)
+{
+	std::string error = SDL_GetError();
 
-	// Render the changes above ( which up until now had just happened behind the scenes )
-	SDL_RenderPresent(renderer);
+	if (error != "")
+	{
+		std::cout << "SLD Error : " << error << std::endl;
 
-	// Pause program so that the window doesn't disappear at once.
-	// This willpause for 4000 milliseconds which is the same as 4 seconds
-	SDL_Delay(4000);
+		if (line != -1)
+			std::cout << "\nLine : " << line << std::endl;
+
+		SDL_ClearError();
+	}
+}
+
+void PrintSDL_GL_Attributes()
+{
+	int value = 0;
+	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &value);
+	std::cout << "SDL_GL_CONTEXT_MAJOR_VERSION : " << value << std::endl;
+
+	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &value);
+	std::cout << "SDL_GL_CONTEXT_MINOR_VERSION: " << value << std::endl;
 }
