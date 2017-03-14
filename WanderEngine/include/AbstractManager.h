@@ -1,7 +1,7 @@
 #pragma once
 #include "Utils/Singleton.h"
 
-namespace Idael
+namespace Wander
 {
 	/*
 	// An abstract for managers.

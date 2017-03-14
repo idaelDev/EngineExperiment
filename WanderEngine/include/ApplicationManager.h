@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 #include "AbstractManager.h"
 
-namespace Idael
+namespace Wander
 {
 
 	class ApplicationManager : public AbstractManager
