@@ -125,16 +125,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\macros.h" />
+    <ClInclude Include="..\include\System\event.h" />
     <ClInclude Include="..\include\System\window.h" />
-    <ClInclude Include="..\include\wanderAbstractManager.h" />
-    <ClInclude Include="..\include\wanderEngine.h" />
-    <ClInclude Include="..\include\wanderGLRendererManager.h" />
-    <ClInclude Include="wanderRendererManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\system\window.cpp" />
-    <ClCompile Include="..\src\wanderGLRendererManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
