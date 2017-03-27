@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Containers\Vector.h" />
     <ClInclude Include="..\include\macros.h" />
     <ClInclude Include="..\include\System\event.h" />
     <ClInclude Include="..\include\System\window.h" />
