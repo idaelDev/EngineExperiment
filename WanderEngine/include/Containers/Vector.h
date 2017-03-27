@@ -17,6 +17,7 @@ limitations under the License.
 #pragma region Includes
 #include<iostream>
 #include<vector>
+#include "macros.h"
 #pragma endregion
 
 namespace Wander
@@ -38,4 +39,20 @@ namespace Wander
 		Vector operator+(const T& other);
 
 	};
+	template<class T>
+	inline bool Vector<T>::operator==(const Vector & other) const
+	{
+		if (std::vector<T>::size() != other.size())
+		{
+			return false;
+		}
+		for (uint32 i(0); i < std::vector<T>.size(); i++)
+		{
+			if (std::vector<T>::operator[](i) != other[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 }
