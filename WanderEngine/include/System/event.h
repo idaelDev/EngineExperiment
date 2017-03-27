@@ -19,17 +19,7 @@ limitations under the License.
 #pragma endregion
 
 namespace Wander
-{
-	typedef union 
-		{
-			struct {
-				int32 x;
-				int32 y;
-			};
-			EventType type;
-			KeyCode key;
-		}Event;
-	
+{	
 	typedef enum
 		{
 			NONE,
@@ -58,7 +48,15 @@ namespace Wander
 		F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12,
 		NUM_LOCK = 0x90, 
 		LSHIFT = 0xA0, RSHIFT, LCTRL, RCTRL, LALT, RALT,
-	
-		FINAL
-	} KeyCode;	
+	} KeyCode;
+
+	typedef union
+	{
+		struct {
+			int32 x;
+			int32 y;
+		};
+		EventType type;
+		KeyCode key;
+	}Event;
 }
