@@ -13,19 +13,31 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\System">
+      <UniqueIdentifier>{1c97d111-2483-4b5c-882f-2223e968f7d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Containers">
+      <UniqueIdentifier>{e84d76f6-8f95-46c2-b6e7-0ccadaea1a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\System">
+      <UniqueIdentifier>{db2a1130-df40-4a2d-9e44-39b9202cb0fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Containers">
+      <UniqueIdentifier>{efa45096-3bc8-437e-989d-14faac9d9809}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\System\window.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="..\include\System\event.h">
+      <Filter>Fichiers d%27en-tête\System</Filter>
     </ClInclude>
     <ClInclude Include="..\include\macros.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\System\event.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="..\include\System\window.h">
+      <Filter>Fichiers d%27en-tête\System</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Containers\Vector.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -33,7 +45,7 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="..\src\system\window.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\System</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
