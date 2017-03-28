@@ -15,7 +15,6 @@ limitations under the License.
 
 #pragma once
 #pragma region Includes
-#include<iostream>
 #include<vector>
 #include "macros.h"
 #pragma endregion
@@ -35,10 +34,9 @@ namespace Wander
 		bool operator==(const Vector& other) const;
 		Vector& operator+=(const Vector& other);
 		Vector& operator+=(const T& other);
-		Vector operator+(const Vector& other);
-		Vector operator+(const T& other);
 
 	};
+
 	template<class T>
 	inline bool Vector<T>::operator==(const Vector & other) const
 	{
@@ -54,5 +52,18 @@ namespace Wander
 			}
 		}
 		return true;
+	}
+
+	template<class T>
+	inline Vector & Vector<T>::operator+=(const Vector & other)
+	{
+		std::vector<T>::insert(std::vector<T>::end(), other.begin(), other.end());
+		return (*this);
+	}
+	template<class T>
+	inline Vector & Vector<T>::operator+=(const T & other)
+	{
+		std::vector<T>::push_back(other);
+		return (*this);
 	}
 }
