@@ -22,13 +22,13 @@ limitations under the License.
 namespace Wander
 {
 	template <class T>
-	class Vector<T> : public std::vector<T>
+	class Vector : public std::vector<T>
 	{
 	public:
 		Vector() : std::vector<T>(){}
 		Vector(std::vector<T>& v) : std::vector<T>(v){}
-		Vector(size_t size, const T& val = T()) : std::vector(size, val) {}
-		template <class InputIterator> Vector(InputIterator first, InputIterator last) : std::vector(first, last) {};
+		Vector(size_t size, const T& val = T()) : std::vector<T>(size, val) {}
+		template <class InputIterator> Vector(InputIterator first, InputIterator last) : std::vector<T>(first, last) {};
 
 		//Operator
 		bool operator==(const Vector& other) const;
