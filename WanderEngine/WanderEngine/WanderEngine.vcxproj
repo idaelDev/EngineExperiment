@@ -124,21 +124,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Containers\List.h" />
     <ClInclude Include="..\include\Containers\Vector.h" />
+    <ClInclude Include="..\include\IManager.h" />
     <ClInclude Include="..\include\macros.h" />
     <ClInclude Include="..\include\System\event.h" />
+    <ClInclude Include="..\include\System\input.h" />
     <ClInclude Include="..\include\System\window.h" />
-    <ClInclude Include="List.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="input.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\system\input.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="..\src\system\window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

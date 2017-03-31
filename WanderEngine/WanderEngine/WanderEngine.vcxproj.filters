@@ -39,11 +39,14 @@
     <ClInclude Include="..\include\Containers\Vector.h">
       <Filter>Fichiers d%27en-tête\Containers</Filter>
     </ClInclude>
-    <ClInclude Include="input.h">
+    <ClInclude Include="..\include\Containers\List.h">
+      <Filter>Fichiers d%27en-tête\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\System\input.h">
       <Filter>Fichiers d%27en-tête\System</Filter>
     </ClInclude>
-    <ClInclude Include="List.h">
-      <Filter>Fichiers d%27en-tête\Containers</Filter>
+    <ClInclude Include="..\include\IManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +55,9 @@
     </ClCompile>
     <ClCompile Include="..\src\system\window.cpp">
       <Filter>Fichiers sources\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\system\input.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

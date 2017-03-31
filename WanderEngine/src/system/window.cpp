@@ -115,3 +115,12 @@ LRESULT Window::MainWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
+
+bool Wander::Window::startUp()
+{
+	return false;
+}
+
+void Wander::Window::shutDown()
+{
+}
