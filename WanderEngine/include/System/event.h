@@ -22,6 +22,7 @@ namespace Wander
 {	
 	class Event
 	{
+	public:
 		typedef enum
 		{
 			NONE,

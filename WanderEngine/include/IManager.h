@@ -1,9 +1,8 @@
 /**********************************************************************
-//File			List
+//File			IManager
 //Author		Judicael Abecassis
-//Last modified	28/03/2017 08:57:27
-//brief			List container extended from std::list
-				- Constant insert and remove operation
+//Last modified	31/03/2017 18:35:33
+//brief			Abstract class of managers, contain virtual fonction for startup and shut down modules
 
 http://www.apache.org/licenses/LICENSE-2.0
 
@@ -16,16 +15,24 @@ limitations under the License.
 
 #pragma once
 #pragma region Includes
-#include <list>
+#include "macros.h"
+#include "Utils\Singleton.h"
 #pragma endregion
 
 namespace Wander
 {
-	template <class T>
-	class List : public std::list<T> {
+	template<class T>
+	class IManager: public Singleton<T>
+	{
+
+		friend Singleton<T>;
+
+	protected:
+		IManager() {};
+		~IManager() {};
+
 	public:
-		List() : std::list<T>() {}
-		List(const std::list<T>& v) : std::list<T>(v) {}
-		List(size_t n, const T& val = T()) : std::list<T>(n, val) {}
+		virtual bool startUp() = 0;
+		virtual void shutDown() = 0;
 	};
 }

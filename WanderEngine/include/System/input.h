@@ -17,8 +17,8 @@ limitations under the License.
 
 #pragma once
 #pragma region Includes
-#include "Utils\Singleton.h"
 #include "macros.h"
+#include "IManager.h"
 #include "Containers\Vector.h"
 #include "Containers\List.h"
 #include "System\event.h"
@@ -26,25 +26,31 @@ limitations under the License.
 
 namespace Wander
 {
-	class Input : public Singleton<Input>
+	class Input : public IManager<Input>
 	{
 		friend Singleton<Input>;
 	public: 
-		Vector<bool> keystate;
-		Vector<bool> keyUp;
-		Vector<bool> keyDown;
-		List<Event> events;
-
-		void startUp();
-		void shutDown();
-		virtual ~Input();
 		
+		~Input(){};
+
 		bool getKeyDown(uint16 key);
 		bool getKeyUp(uint16 key);
 		bool getKey(uint16 key);
 
+		bool popEvent(Event& e);
+
+		// Hérité via IManager
+		virtual bool startUp() override;
+
+		virtual void shutDown() override;
+
 	private:
-		Input();
+		Input() : IManager<Input>() {}
+		
+		Vector<bool> keyState;
+		Vector<bool> keyUp;
+		Vector<bool> keyDown;
+		List<Event> events;
 	};
 
 }
