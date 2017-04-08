@@ -21,6 +21,7 @@ limitations under the License.
 #include "input.h"
 #ifdef OS_WINDOWS
 #include <windows.h>
+#include <Windowsx.h>
 #endif 
 #pragma endregion
 
@@ -30,7 +31,7 @@ namespace Wander
 	class Window : public IManager<Window>
 	{
 
-		friend Input;
+		friend class Input;
 
 	public:
 		
@@ -48,7 +49,7 @@ namespace Wander
 	private:
 
 		Window() : IManager<Window>() {};
-
+		
 #ifdef OS_WINDOWS
 		
 		HWND hWND;

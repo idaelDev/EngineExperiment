@@ -33,9 +33,9 @@ namespace Wander
 		
 		~Input(){};
 
-		bool getKeyDown(uint16 key);
-		bool getKeyUp(uint16 key);
-		bool getKey(uint16 key);
+		void pushEvent(const Event& e);
+
+		bool getKey(uint16 key) const;
 
 		bool popEvent(Event& e);
 
@@ -48,8 +48,6 @@ namespace Wander
 		Input() : IManager<Input>() {}
 		
 		Vector<bool> keyState;
-		Vector<bool> keyUp;
-		Vector<bool> keyDown;
 		List<Event> events;
 	};
 

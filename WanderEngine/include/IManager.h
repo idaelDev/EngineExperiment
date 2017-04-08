@@ -34,5 +34,6 @@ namespace Wander
 	public:
 		virtual bool startUp() = 0;
 		virtual void shutDown() = 0;
+		virtual bool update() = 0;
 	};
 }

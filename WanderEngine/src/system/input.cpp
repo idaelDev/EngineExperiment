@@ -17,35 +17,34 @@ limitations under the License.
 #include"System\input.h"
 #pragma endregion
 
-bool Wander::Input::startUp()
+using namespace Wander;
+
+bool Input::startUp()
 {
 	keyState = Vector<bool>(Event::FINAL_KEYCODE, false);
-	keyDown = Vector<bool>(Event::FINAL_KEYCODE, false);
-	keyUp = Vector<bool>(Event::FINAL_KEYCODE, false);
 	events = List<Event>();
 	return true;
 }
 
-void Wander::Input::shutDown()
+void Input::shutDown()
 {
 }
 
-bool Wander::Input::getKeyDown(uint16 key)
+void Wander::Input::pushEvent(const Event & e)
 {
-	return keyDown[key];
+	if (e.type == Event::KEY_UP || e.type == Event::KEY_DOWN)
+	{
+		keyState[e.key] = (e.type == Event::KEY_DOWN);
+	}
+	events.push_back(e);
 }
 
-bool Wander::Input::getKeyUp(uint16 key)
-{
-	return keyUp[key];
-}
-
-bool Wander::Input::getKey(uint16 key)
+bool Input::getKey(uint16 key) const
 {
 	return keyState[key];
 }
 
-bool Wander::Input::popEvent(Event & e)
+bool Input::popEvent(Event & e)
 {
 	if (events.empty())
 	{
