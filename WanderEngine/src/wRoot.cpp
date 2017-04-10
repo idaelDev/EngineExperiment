@@ -18,6 +18,7 @@ limitations under the License.
 #include "wTime.h"
 #pragma endregion
 
+
 bool Wander::Root::startUp()
 {
 	return true;
@@ -29,8 +30,24 @@ void Wander::Root::shutDown()
 
 void Wander::Root::run()
 {
+	Time ms_per_update(60000); //dirty
+	Timer timer;
+	Time elapsed;
+	Time lag(0LL);
 	while (true)
 	{
+		elapsed = timer.frame();
+		lag += elapsed;
+
+		//processInput
+
+		if (lag >= ms_per_update)
+		{
+			//Update gp
+			lag -= ms_per_update;
+		}
+
+		//render(lag/ms_per_update)
 
 	}
 }
