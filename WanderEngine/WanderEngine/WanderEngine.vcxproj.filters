@@ -27,37 +27,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\System\event.h">
-      <Filter>Fichiers d%27en-tête\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\macros.h">
-      <Filter>Fichiers d%27en-tête\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\System\window.h">
-      <Filter>Fichiers d%27en-tête\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Containers\Vector.h">
-      <Filter>Fichiers d%27en-tête\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Containers\List.h">
-      <Filter>Fichiers d%27en-tête\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\System\input.h">
-      <Filter>Fichiers d%27en-tête\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\IManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\system\window.cpp">
-      <Filter>Fichiers sources\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\system\input.cpp">
+    <ClCompile Include="..\src\wRoot.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Containers\List.h">
+      <Filter>Fichiers d%27en-tête\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wRoot.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\macros.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
