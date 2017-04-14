@@ -66,7 +66,7 @@ void Timer::pause()
 
 void Wander::Timer::unpause()
 {
-	if (!pause)
+	if (!paused)
 	{
 		last += Time::now();
 		paused = false;

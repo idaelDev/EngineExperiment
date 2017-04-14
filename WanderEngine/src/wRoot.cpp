@@ -14,23 +14,32 @@ limitations under the License.
 **********************************************************************/
 
 #pragma region Includes
+#include <iostream>
+#include <windows.h>
+
 #include "wRoot.h"
 #include "wTime.h"
 #pragma endregion
 
+using namespace Wander;
 
-bool Wander::Root::startUp()
+bool Root::startUp()
 {
+	std::cout << "Starting up" << std::endl;
+	Sleep(2000); //simulate startup;
+	std::cout << "Done" << std::endl;
 	return true;
 }
 
-void Wander::Root::shutDown()
+void Root::shutDown()
 {
+	std::cout << "Shuting down" << std::endl;
 }
 
-void Wander::Root::run()
+void Root::run()
 {
-	Time ms_per_update(60000); //dirty
+	std::cout << "Start running..." << std::endl;
+	Time ms_per_update(16000); //dirty
 	Timer timer;
 	Time elapsed;
 	Time lag(0LL);
@@ -38,16 +47,23 @@ void Wander::Root::run()
 	{
 		elapsed = timer.frame();
 		lag += elapsed;
+		std::cout << "Frame...elapsed : " << elapsed.fSeconds() << std::endl;
+		std::cout << "Frame...lag : " << lag.fSeconds() << std::endl;
+		
+		//process input;
+		std::cout << "Process input..." << std::endl;
+		Sleep(4);
 
-		//processInput
-
-		if (lag >= ms_per_update)
+		while (lag >= ms_per_update)
 		{
 			//Update gp
+			Sleep(4);
 			lag -= ms_per_update;
+			std::cout << "Upate...lag : " << lag.fSeconds() << std::endl;
 		}
 
+		std::cout << "render" << std::endl;
 		//render(lag/ms_per_update)
-
+		Sleep(8);
 	}
 }

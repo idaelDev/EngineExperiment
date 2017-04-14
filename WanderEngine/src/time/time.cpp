@@ -105,8 +105,8 @@ Time Wander::Time::now()
 {
 #if defined OS_WINDOWS
 	struct _timeb timebuffer;
-	_ftime(&timebuffer);
-	return Time(0, timebuffer.millitm, timebuffer.time);
+	_ftime64_s(&timebuffer);
+	return Time(0, timebuffer.millitm, (long)(timebuffer.time));
 #elif defined OS_LINUX
 	struct timeval tv;
 	gettimeofday(&tv, NULL);

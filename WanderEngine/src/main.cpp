@@ -1,10 +1,11 @@
 // C++ Headers
 #include <string>
 #include <iostream>
-#include "system\event.h"
+#include "wRoot.h"
 
 void main()
 {
-
-
+	Wander::Root root;
+	root.startUp();
+	root.run();
 }

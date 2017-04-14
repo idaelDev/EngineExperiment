@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WanderEngine", "WanderEngine\WanderEngine.vcxproj", "{DACF4783-3B31-4F05-A1A1-C2B578CB58A1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9A04CF0C-7279-4856-B7C8-953E40737F81} = {9A04CF0C-7279-4856-B7C8-953E40737F81}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Time", "WanderEngine\Time.vcxproj", "{9A04CF0C-7279-4856-B7C8-953E40737F81}"
 EndProject
