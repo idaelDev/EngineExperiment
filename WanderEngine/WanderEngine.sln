@@ -13,7 +13,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Time", "src\Time\Time.vcxpr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Containers", "src\Containers\Containers.vcxproj", "{08D560A9-0C11-4B3D-87C2-9B9121D3A7FE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log", "src\wlog\log.vcxproj", "{C26131DB-13CC-406F-8FA7-4CF2272375F7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Logger", "src\Logger\log.vcxproj", "{C26131DB-13CC-406F-8FA7-4CF2272375F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

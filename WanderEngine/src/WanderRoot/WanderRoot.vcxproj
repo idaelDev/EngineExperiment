@@ -95,6 +95,7 @@
     <Link>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -150,6 +151,9 @@
     <ClInclude Include="wRoot.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Logger\log.vcxproj">
+      <Project>{c26131db-13cc-406f-8fa7-4cf2272375f7}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Time\Time.vcxproj">
       <Project>{2c3bfa8d-8659-4931-a997-9317707adda1}</Project>
     </ProjectReference>

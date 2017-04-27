@@ -1,8 +1,8 @@
 /**********************************************************************
-//File			main
+//File			wLogger
 //Author		Judicael Abecassis
-//Last modified	15/04/2017 01:50:40
-//Definition
+//Last modified	26/04/2017 19:14:07
+//brief	..
 
 http://www.apache.org/licenses/LICENSE-2.0
 
@@ -13,28 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 **********************************************************************/
 
+#pragma once
 #pragma region Includes
-#include "wLogger.h"
+#include "Logger/log.h"
 #pragma endregion
-
-using namespace Wander;
-
-int main(int argc, char* argv[])
-{
-	try
-	{
-		FILELog::ReportingLevel() = FILELog::FromString(argv[1] ? argv[1] : "DEBUG1");
-		const int count = 3;
-		FILE_LOG(logDEBUG) << "A loop with " << count << " iterations";
-		for (int i = 0; i != count; ++i)
-		{
-			FILE_LOG(logDEBUG1) << "the counter i = " << i;
-		}
-		return 0;
-	}
-	catch (const std::exception& e)
-	{
-		FILE_LOG(logERROR) << e.what();
-	}
-	return -1;
-}
