@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Time", "src\Time\Time.vcxpr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Containers", "src\Containers\Containers.vcxproj", "{08D560A9-0C11-4B3D-87C2-9B9121D3A7FE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Logger", "src\Logger\log.vcxproj", "{C26131DB-13CC-406F-8FA7-4CF2272375F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -45,6 +47,14 @@ Global
 		{08D560A9-0C11-4B3D-87C2-9B9121D3A7FE}.Release|x64.Build.0 = Release|x64
 		{08D560A9-0C11-4B3D-87C2-9B9121D3A7FE}.Release|x86.ActiveCfg = Release|Win32
 		{08D560A9-0C11-4B3D-87C2-9B9121D3A7FE}.Release|x86.Build.0 = Release|Win32
+		{C26131DB-13CC-406F-8FA7-4CF2272375F7}.Debug|x64.ActiveCfg = Debug|x64
+		{C26131DB-13CC-406F-8FA7-4CF2272375F7}.Debug|x64.Build.0 = Debug|x64
+		{C26131DB-13CC-406F-8FA7-4CF2272375F7}.Debug|x86.ActiveCfg = Debug|Win32
+		{C26131DB-13CC-406F-8FA7-4CF2272375F7}.Debug|x86.Build.0 = Debug|Win32
+		{C26131DB-13CC-406F-8FA7-4CF2272375F7}.Release|x64.ActiveCfg = Release|x64
+		{C26131DB-13CC-406F-8FA7-4CF2272375F7}.Release|x64.Build.0 = Release|x64
+		{C26131DB-13CC-406F-8FA7-4CF2272375F7}.Release|x86.ActiveCfg = Release|Win32
+		{C26131DB-13CC-406F-8FA7-4CF2272375F7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

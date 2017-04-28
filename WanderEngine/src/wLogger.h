@@ -1,8 +1,8 @@
 /**********************************************************************
-//File			main
+//File			wLogger
 //Author		Judicael Abecassis
-//Last modified	15/04/2017 01:50:40
-//Definition
+//Last modified	26/04/2017 19:14:07
+//brief	..
 
 http://www.apache.org/licenses/LICENSE-2.0
 
@@ -13,23 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 **********************************************************************/
 
+#pragma once
 #pragma region Includes
-#include "wLogger.h"
+#include "Logger/log.h"
 #pragma endregion
-
-using namespace Wander;
-
-int main(int argc, char* argv[])
-{
-
-	LOG(LOG_ERROR) << "Error";
-	LOG(LOG_WARNING) << "Warning";
-	LOG(LOG_INFO) << "Info";
-	LOG(LOG_DEBUG) << "Debug";
-	LOG(LOG_DEBUG1) << "Debug 1";
-	LOG(LOG_DEBUG2) << "Debug 2";
-	LOG(LOG_DEBUG3) << "Debug 3";
-	LOG(LOG_DEBUG4) << "Debug 4";
-
-	return 0;
-}
