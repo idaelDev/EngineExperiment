@@ -21,20 +21,15 @@ using namespace Wander;
 
 int main(int argc, char* argv[])
 {
-	try
-	{
-		FILELog::ReportingLevel() = FILELog::FromString(argv[1] ? argv[1] : "DEBUG1");
-		const int count = 3;
-		FILE_LOG(logDEBUG) << "A loop with " << count << " iterations";
-		for (int i = 0; i != count; ++i)
-		{
-			FILE_LOG(logDEBUG1) << "the counter i = " << i;
-		}
-		return 0;
-	}
-	catch (const std::exception& e)
-	{
-		FILE_LOG(logERROR) << e.what();
-	}
-	return -1;
+
+	LOG(LOG_ERROR) << "Error";
+	LOG(LOG_WARNING) << "Warning";
+	LOG(LOG_INFO) << "Info";
+	LOG(LOG_DEBUG) << "Debug";
+	LOG(LOG_DEBUG1) << "Debug 1";
+	LOG(LOG_DEBUG2) << "Debug 2";
+	LOG(LOG_DEBUG3) << "Debug 3";
+	LOG(LOG_DEBUG4) << "Debug 4";
+
+	return 0;
 }

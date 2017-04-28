@@ -151,9 +151,6 @@
     <ClInclude Include="wRoot.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Logger\log.vcxproj">
-      <Project>{c26131db-13cc-406f-8fa7-4cf2272375f7}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\Time\Time.vcxproj">
       <Project>{2c3bfa8d-8659-4931-a997-9317707adda1}</Project>
     </ProjectReference>

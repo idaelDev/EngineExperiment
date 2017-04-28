@@ -1,8 +1,10 @@
 /**********************************************************************
-//File			timer
+//File			log.h
 //Author		Judicael Abecassis
 //Last modified	09/04/2017 15:19:10
-//brief			Mesure elapsed time for otpimisation and timeline option
+//brief			Logger system with level managment
+				Type-safe, thread safe
+				This work is base on Dr'dobbs article http://www.drdobbs.com/cpp/logging-in-c
 
 http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,40 +28,84 @@ limitations under the License.
 namespace Wander
 {
 
-	enum TLogLevel { logERROR, logWARNING, logINFO, logDEBUG, logDEBUG1, logDEBUG2, logDEBUG3, logDEBUG4 };
+	enum TLogLevel { LOG_ERROR, LOG_WARNING, LOG_INFO, LOG_DEBUG, LOG_DEBUG1, LOG_DEBUG2, LOG_DEBUG3, LOG_DEBUG4 };
 
+
+	//Create a manage a stringstream object for output
+	//The template parameter is fill with a output policy class that manage output configurations
 	template <typename T>
 	class Log
 	{
 	public:
+
 		Log();
 		virtual ~Log();
-		std::ostringstream& Get(TLogLevel level = logINFO);
+		std::ostringstream& get(TLogLevel level = LOG_INFO);
+
 	public:
-		static TLogLevel& ReportingLevel();
-		static std::string ToString(TLogLevel level);
-		static TLogLevel FromString(const std::string& level);
+
+		static TLogLevel& reportingLevel();
+		std::string Log<T>::toString(TLogLevel level);
+
 	protected:
 		std::ostringstream os;
+
 	private:
 		Log(const Log&);
-		Log& operator =(const Log&);
+		//Log& operator =(const Log&);
+
 	};
 
-	class Output2FILE
+	template<typename T>
+	inline Log<T>::Log()
+	{
+	}
+
+	template<typename T>
+	inline Log<T>::~Log()
+	{
+		os << std::endl;
+		T::Output(os.str());
+	}
+
+	template<typename T>
+	inline std::ostringstream & Log<T>::get(TLogLevel level)
+	{
+		os << "- " << Time::now().milliseconds();
+		os << " " << toString(level) << ": ";
+		os << std::string(level > LOG_DEBUG ? level - LOG_DEBUG : 0, '\t');
+		return os;
+	}
+
+	template<typename T>
+	inline TLogLevel & Log<T>::reportingLevel()
+	{
+		static TLogLevel reportingLevel = LOG_DEBUG4;
+		return reportingLevel;
+	}
+
+	template<typename T>
+	inline std::string Log<T>::toString(TLogLevel level)
+	{
+		static const char* const buffer[] = { "ERROR", "WARNING", "INFO", "DEBUG", "DEBUG1", "DEBUG2", "DEBUG3", "DEBUG4" };
+		return buffer[level];
+	}
+
+
+	class OutputPolicy
 	{
 	public:
 		static FILE*& Stream();
 		static void Output(const std::string& msg);
 	};
 
-	inline FILE*& Output2FILE::Stream()
+	inline FILE*& OutputPolicy::Stream()
 	{
 		static FILE* pStream = stderr;
 		return pStream;
 	}
 
-	inline void Output2FILE::Output(const std::string& msg)
+	inline void OutputPolicy::Output(const std::string& msg)
 	{
 		FILE* pStream = Stream();
 		if (!pStream)
@@ -68,27 +114,15 @@ namespace Wander
 		fflush(pStream);
 	}
 
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
-#   if defined (BUILDING_FILELOG_DLL)
-#       define FILELOG_DECLSPEC   __declspec (dllexport)
-#   elif defined (USING_FILELOG_DLL)
-#       define FILELOG_DECLSPEC   __declspec (dllimport)
-#   else
-#       define FILELOG_DECLSPEC
-#   endif // BUILDING_DBSIMPLE_DLL
-#else
-#   define FILELOG_DECLSPEC
-#endif // _WIN32
 
-	class FILELOG_DECLSPEC FILELog : public Log<Output2FILE> {};
-	//typedef Log<Output2FILE> FILELog;
+	typedef Log<OutputPolicy> FLOG;
 
-#ifndef FILELOG_MAX_LEVEL
-#define FILELOG_MAX_LEVEL logDEBUG4
+#ifndef LOG_MAX_LEVEL
+#define LOG_MAX_LEVEL LOG_DEBUG4
 #endif
 
-#define FILE_LOG(level) \
-    if (level > FILELOG_MAX_LEVEL) ;\
-    else if (level > FILELog::ReportingLevel() || !Output2FILE::Stream()) ; \
-    else FILELog().Get(level)
+#define LOG(level) \
+    if (level > LOG_MAX_LEVEL) ;\
+    else if (level > FLOG::reportingLevel() || !OutputPolicy::Stream()) ; \
+    else FLOG().get(level)
 }

@@ -138,12 +138,6 @@
     <ClInclude Include="log.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="log.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Time\Time.vcxproj">
       <Project>{2c3bfa8d-8659-4931-a997-9317707adda1}</Project>
     </ProjectReference>
