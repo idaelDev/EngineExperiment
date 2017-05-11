@@ -19,26 +19,27 @@ limitations under the License.
 
 #include "wRoot.h"
 #include "wTime.h"
+#include "wLogger.h"
 #pragma endregion
 
 using namespace Wander;
 
 bool Root::startUp()
 {
-	std::cout << "Starting up" << std::endl;
+	LOG(LOG_INFO) << "Starting up";
 	Sleep(2000); //simulate startup;
-	std::cout << "Done" << std::endl;
+	LOG(LOG_INFO) << "Done";
 	return true;
 }
 
 void Root::shutDown()
 {
-	std::cout << "Shuting down" << std::endl;
+	LOG(LOG_INFO) << "Shuting down";
 }
 
 void Root::run()
 {
-	std::cout << "Start running..." << std::endl;
+	LOG(LOG_DEBUG) << "Start running...";
 	Time ms_per_update(16000); //dirty
 	Timer timer;
 	Time elapsed;
@@ -47,11 +48,11 @@ void Root::run()
 	{
 		elapsed = timer.frame();
 		lag += elapsed;
-		std::cout << "Frame...elapsed : " << elapsed.fSeconds() << std::endl;
-		std::cout << "Frame...lag : " << lag.fSeconds() << std::endl;
+		LOG(LOG_DEBUG3) << "Frame...elapsed : " << elapsed.fSeconds();
+		LOG(LOG_DEBUG3) << "Frame...lag : " << lag.fSeconds();
 		
 		//process input;
-		std::cout << "Process input..." << std::endl;
+		LOG(LOG_DEBUG3) << "Process input...";
 		Sleep(4);
 
 		while (lag >= ms_per_update)
@@ -59,10 +60,10 @@ void Root::run()
 			//Update gp
 			Sleep(4);
 			lag -= ms_per_update;
-			std::cout << "Upate...lag : " << lag.fSeconds() << std::endl;
+			LOG(LOG_DEBUG4) << "Upate...lag : " << lag.fSeconds();
 		}
 
-		std::cout << "render" << std::endl;
+		LOG(LOG_DEBUG3) << "render";
 		//render(lag/ms_per_update)
 		Sleep(8);
 	}

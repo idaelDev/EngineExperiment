@@ -14,22 +14,17 @@ limitations under the License.
 **********************************************************************/
 
 #pragma region Includes
-#include "wLogger.h"
+#include "wRoot.h"
 #pragma endregion
 
 using namespace Wander;
 
 int main(int argc, char* argv[])
 {
-
-	LOG(LOG_ERROR) << "Error";
-	LOG(LOG_WARNING) << "Warning";
-	LOG(LOG_INFO) << "Info";
-	LOG(LOG_DEBUG) << "Debug";
-	LOG(LOG_DEBUG1) << "Debug 1";
-	LOG(LOG_DEBUG2) << "Debug 2";
-	LOG(LOG_DEBUG3) << "Debug 3";
-	LOG(LOG_DEBUG4) << "Debug 4";
+	Root engine;
+	engine.startUp();
+	engine.run();
+	engine.shutDown();
 
 	return 0;
 }
