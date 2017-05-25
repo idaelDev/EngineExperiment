@@ -31,9 +31,9 @@ namespace Wander
 		template <class InputIterator> Vector(InputIterator first, InputIterator last) : std::vector<T>(first, last) {};
 
 		//Operator
-		bool operator==(const Vector& other) const;
-		Vector& operator+=(const Vector& other);
-		Vector& operator+=(const T& other);
+		bool operator==(const Vector<T>& other) const;
+		Vector<T>& operator+=(const Vector<T>& other);
+		Vector<T>& operator+=(const T& other);
 
 	};
 
@@ -55,13 +55,14 @@ namespace Wander
 	}
 
 	template<class T>
-	inline Vector & Vector<T>::operator+=(const Vector & other)
+	inline Vector<T> & Vector<T>::operator+=(const Vector<T> & other)
 	{
 		std::vector<T>::insert(std::vector<T>::end(), other.begin(), other.end());
 		return (*this);
 	}
+
 	template<class T>
-	inline Vector & Vector<T>::operator+=(const T & other)
+	inline Vector<T> & Vector<T>::operator+=(const T & other)
 	{
 		std::vector<T>::push_back(other);
 		return (*this);

@@ -1,8 +1,8 @@
 /**********************************************************************
-//File			main
+//File			wContainers
 //Author		Judicael Abecassis
-//Last modified	15/04/2017 01:50:40
-//Definition
+//Last modified	15/05/2017 08:43:31
+//brief	..
 
 http://www.apache.org/licenses/LICENSE-2.0
 
@@ -13,28 +13,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 **********************************************************************/
 
+#pragma once
 #pragma region Includes
-#include "wRoot.h"
-#include "wLogger.h"
+#include "containers\List.h"
+#include "containers\Vector.h"
 #pragma endregion
 
-using namespace Wander;
-
-#ifdef OS_WINDOWS
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-	LPSTR lpCmdLine, int nCmdShow)
-#else
-int main(int argc, char* argv[])
-#endif // OS_WINDOWS
-{
-	FILE* pFile;
-	fopen_s(&pFile, "application.log", "w");
-	OutputPolicy::Stream() = pFile;
-
-	Root engine;
-	engine.startUp();
-	engine.run();
-	engine.shutDown();
-
-	return 0;
-}

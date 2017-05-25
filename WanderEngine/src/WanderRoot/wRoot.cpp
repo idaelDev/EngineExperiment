@@ -14,9 +14,7 @@ limitations under the License.
 **********************************************************************/
 
 #pragma region Includes
-#include <iostream>
-#include <windows.h>
-
+#include<string>
 #include "wRoot.h"
 #include "wTime.h"
 #include "wLogger.h"
@@ -24,10 +22,24 @@ limitations under the License.
 
 using namespace Wander;
 
+Wander::Root::Root()
+{
+	subModule_Window = new Window();
+}
+
 bool Root::startUp()
 {
 	LOG(LOG_INFO) << "Starting up";
-	Sleep(2000); //simulate startup;
+	subModule_Window->startUp();
+
+	std::string title = "Hello World";
+	
+	if (!subModule_Window->open(title))
+	{
+		LOG(LOG_ERROR) << "Fail open window";
+		shutDown();
+	}
+
 	LOG(LOG_INFO) << "Done";
 	return true;
 }
@@ -35,6 +47,8 @@ bool Root::startUp()
 void Root::shutDown()
 {
 	LOG(LOG_INFO) << "Shuting down";
+	subModule_Window->close();
+	subModule_Window->shutDown();
 }
 
 void Root::run()
@@ -48,12 +62,16 @@ void Root::run()
 	{
 		elapsed = timer.frame();
 		lag += elapsed;
-		LOG(LOG_DEBUG3) << "Frame...elapsed : " << elapsed.fSeconds();
-		LOG(LOG_DEBUG3) << "Frame...lag : " << lag.fSeconds();
+		LOG(LOG_DEBUG1) << "Frame...elapsed : " << elapsed.fSeconds();
+		LOG(LOG_DEBUG1) << "Frame...lag : " << lag.fSeconds();
 		
 		//process input;
-		LOG(LOG_DEBUG3) << "Process input...";
-		Sleep(4);
+		LOG(LOG_DEBUG1) << "Process input...";
+		//Event e;
+		//while (subModule_Window->getNextEvent(e))
+		//{
+		//	LOG(LOG_DEBUG2) << "Event window : " << e.key;
+		//}
 
 		while (lag >= ms_per_update)
 		{
@@ -63,7 +81,7 @@ void Root::run()
 			LOG(LOG_DEBUG4) << "Upate...lag : " << lag.fSeconds();
 		}
 
-		LOG(LOG_DEBUG3) << "render";
+		LOG(LOG_DEBUG1) << "render";
 		//render(lag/ms_per_update)
 		Sleep(8);
 	}

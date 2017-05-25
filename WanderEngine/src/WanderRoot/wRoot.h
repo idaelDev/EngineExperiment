@@ -16,6 +16,7 @@ limitations under the License.
 #pragma once
 #pragma region Includes
 #include "macros.h"
+#include "WanderWindow\window.h"
 #include "Containers\List.h"
 #pragma endregion
 
@@ -25,7 +26,7 @@ namespace Wander
 	{
 	public:
 
-		Root() {};
+		Root();
 		virtual ~Root() {}
 
 		bool startUp();
@@ -34,6 +35,6 @@ namespace Wander
 		void run();
 
 	private:
-
+		Window* subModule_Window;
 	};
 }

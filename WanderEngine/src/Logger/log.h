@@ -99,6 +99,10 @@ namespace Wander
 		static void Output(const std::string& msg);
 	};
 
+
+	//FILE* pFile = fopen("application.log", "a");
+	//OutputPolicy::Stream() = pFile;
+	//FILE_LOG(logINFO) << ...;
 	inline FILE*& OutputPolicy::Stream()
 	{
 		static FILE* pStream = stderr;
