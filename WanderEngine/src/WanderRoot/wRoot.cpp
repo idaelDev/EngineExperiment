@@ -67,11 +67,11 @@ void Root::run()
 		
 		//process input;
 		LOG(LOG_DEBUG1) << "Process input...";
-		//Event e;
-		//while (subModule_Window->getNextEvent(e))
-		//{
-		//	LOG(LOG_DEBUG2) << "Event window : " << e.key;
-		//}
+		Event e;
+		while (subModule_Window->getNextEvent(e))
+		{
+			LOG(LOG_DEBUG2) << "Event window : " << e.key;
+		}
 
 		while (lag >= ms_per_update)
 		{

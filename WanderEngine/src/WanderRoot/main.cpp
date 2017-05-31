@@ -12,6 +12,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 **********************************************************************/
+#ifdef _DEBUG
+#pragma comment(linker, "/SUBSYSTEM:CONSOLE /ENTRY:WinMainCRTStartup")
+#else // DEBUG
+#pragma comment(linker, "/SUBSYSTEM:WINDOWS /ENTRY:WinMainCRTStartup")
+#endif
 
 #pragma region Includes
 #include "wRoot.h"
@@ -27,9 +32,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 int main(int argc, char* argv[])
 #endif // OS_WINDOWS
 {
-	FILE* pFile;
-	fopen_s(&pFile, "application.log", "w");
-	OutputPolicy::Stream() = pFile;
+	//FILE* pFile;
+	//fopen_s(&pFile, "application.log", "w");
+	//OutputPolicy::Stream() = pFile;
 
 	Root engine;
 	engine.startUp();

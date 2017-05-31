@@ -18,10 +18,8 @@ limitations under the License.
 
 using namespace Wander;
 
-List<Event> events;
-
 #ifdef OS_WINDOWS
-LRESULT CALLBACK WndProc(HWND hWND, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK MainWndProc(HWND hWND, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	Event e;
 	switch (uMsg) {
@@ -85,49 +83,66 @@ LRESULT CALLBACK WndProc(HWND hWND, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 bool Window::open(std::string & title, size_t width, size_t height, size_t flags)
 {
-	WNDCLASSEX wc;
-	HWND hwnd;
+	if (opened()) return  true;
+#ifdef OS_WINDOWS
+	WNDCLASS wc;
 
+	PIXELFORMATDESCRIPTOR pfd;
+	int format;
 
-	//Step 1: Registering the Window Class
-	wc.cbSize = sizeof(WNDCLASSEX);
-	wc.style = 0;
-	wc.lpfnWndProc = WndProc;
+	// Register window class
+	wc.style = CS_OWNDC;
+	wc.lpfnWndProc = MainWndProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
-	wc.hInstance = GetModuleHandle(NULL);;
+	wc.hInstance = GetModuleHandle(NULL);
 	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wc.lpszMenuName = NULL;
-	wc.lpszClassName = "Window";
-	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
-
-	if (!RegisterClassEx(&wc))
+	wc.lpszClassName = "WanderWindowClass";
+	
+	if (!RegisterClass(&wc))
 	{
-		MessageBox(NULL, "Window Registration Failed!", "Error!",
-			MB_ICONEXCLAMATION | MB_OK);
-		return 0;
-	}
-
-	// Step 2: Creating the Window
-	hwnd = CreateWindowEx(
-		WS_EX_CLIENTEDGE,
-		"Window",
-		"The title of my window",
-		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, 240, 120,
-		NULL, NULL, GetModuleHandle(NULL), NULL);
-
-	if (hwnd == NULL)
-	{
-		MessageBox(NULL, "Window Creation Failed!", "Error!",
-			MB_ICONEXCLAMATION | MB_OK);
+		LOG(LOG_ERROR) << "Window registration failed";
 		return false;
 	}
 
-	ShowWindow(hwnd, SW_SHOWNORMAL);
-	UpdateWindow(hwnd);
+	DWORD wStyle = WS_CAPTION
+		| WS_MINIMIZEBOX
+		| 0
+		| 0
+		| WS_SYSMENU | WS_VISIBLE;
+	
+	// Find out needed window size for wanted client area size
+	RECT rect = { 0,0,(int)width,(int)height };
+	AdjustWindowRect(&rect, wStyle, false);
+	width = rect.right - rect.left;
+	height = rect.bottom - rect.top;
+
+	// Create window
+	hWND = CreateWindow("WanderWindow", title.c_str(), wStyle,   // Properties
+		CW_USEDEFAULT, CW_USEDEFAULT, width, height,
+		NULL, NULL, GetModuleHandle(NULL), NULL);
+	
+	hDC = GetDC(hWND); //Get the device context (DC)
+	ZeroMemory(&pfd, sizeof(pfd)); // set the pixel format for the DC
+	pfd.nSize = sizeof(pfd);
+	pfd.nVersion = 1;
+	pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+	pfd.iPixelType = PFD_TYPE_RGBA;
+	pfd.cColorBits = 24;
+	pfd.cDepthBits = 16;
+	pfd.iLayerType = PFD_MAIN_PLANE;
+	format = ChoosePixelFormat(hDC, &pfd);
+	SetPixelFormat(hDC, format, &pfd);
+	hRC = wglCreateContext(hDC); // create and enable the render context (RC)
+	wglMakeCurrent(hDC, hRC);
+
+	ShowWindow(hWND, 0);
+	UpdateWindow(hWND);
+
+#endif // OS_WINDOWS
 	return true;
 }
 
@@ -150,7 +165,7 @@ bool Wander::Window::getNextEvent(Event &e)
 {
 #ifdef OS_WINDOWS
 	MSG Msg;
-	while (PeekMessage(&Msg, NULL, 0, 0, PM_REMOVE) > 0)
+	while (GetMessage(&Msg, NULL, 0, 0) > 0)
 	{
 		TranslateMessage(&Msg);
 		DispatchMessage(&Msg);
@@ -165,11 +180,12 @@ bool Wander::Window::getNextEvent(Event &e)
 	e = events.front();
 	events.pop_front();
 	return true;
+
 }
 
 bool Wander::Window::startUp()
 {
-	events = List<Event>();
+	Window::events = List<Event>();
 	return true;
 }
 
