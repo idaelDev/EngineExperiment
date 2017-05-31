@@ -78,7 +78,7 @@ LRESULT CALLBACK WndProc(HWND hWND, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	default: return DefWindowProc(hWND, uMsg, wParam, lParam); break;
 	}
-	//Window::events.push_back(e);
+	events.push_back(e);
 	return 0;
 }
 #endif // OS_WINDOWS

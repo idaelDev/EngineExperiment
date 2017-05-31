@@ -62,11 +62,11 @@ void Root::run()
 	{
 		elapsed = timer.frame();
 		lag += elapsed;
-		LOG(LOG_DEBUG1) << "Frame...elapsed : " << elapsed.fSeconds();
-		LOG(LOG_DEBUG1) << "Frame...lag : " << lag.fSeconds();
+		//OG(LOG_DEBUG1) << "Frame...elapsed : " << elapsed.fSeconds();
+		//LOG(LOG_DEBUG1) << "Frame...lag : " << lag.fSeconds();
 		
 		//process input;
-		LOG(LOG_DEBUG1) << "Process input...";
+		//LOG(LOG_DEBUG1) << "Process input...";
 		Event e;
 		while (subModule_Window->getNextEvent(e))
 		{
@@ -76,13 +76,13 @@ void Root::run()
 		while (lag >= ms_per_update)
 		{
 			//Update gp
-			Sleep(4);
+			//Sleep(4);
 			lag -= ms_per_update;
-			LOG(LOG_DEBUG4) << "Upate...lag : " << lag.fSeconds();
+			//LOG(LOG_DEBUG4) << "Upate...lag : " << lag.fSeconds();
 		}
 
-		LOG(LOG_DEBUG1) << "render";
+		//LOG(LOG_DEBUG1) << "render";
 		//render(lag/ms_per_update)
-		Sleep(8);
+		//Sleep(8);
 	}
 }
