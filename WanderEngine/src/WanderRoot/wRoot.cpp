@@ -24,17 +24,17 @@ using namespace Wander;
 
 Wander::Root::Root()
 {
-	subModule_Window = new Window();
+	sWindow = new Window();
 }
 
 bool Root::startUp()
 {
 	LOG(LOG_INFO) << "Starting up";
-	subModule_Window->startUp();
+	sWindow->startUp();
 
 	std::string title = "Hello World";
 	
-	if (!subModule_Window->open(title))
+	if (!sWindow->open(title))
 	{
 		LOG(LOG_ERROR) << "Fail open window";
 		shutDown();
@@ -47,8 +47,8 @@ bool Root::startUp()
 void Root::shutDown()
 {
 	LOG(LOG_INFO) << "Shuting down";
-	subModule_Window->close();
-	subModule_Window->shutDown();
+	sWindow->close();
+	sWindow->shutDown();
 }
 
 void Root::run()
@@ -62,27 +62,25 @@ void Root::run()
 	{
 		elapsed = timer.frame();
 		lag += elapsed;
-		//OG(LOG_DEBUG1) << "Frame...elapsed : " << elapsed.fSeconds();
-		//LOG(LOG_DEBUG1) << "Frame...lag : " << lag.fSeconds();
+		LOG(LOG_DEBUG3) << "Frame...elapsed : " << elapsed.fSeconds();
+		LOG(LOG_DEBUG3) << "Frame...lag : " << lag.fSeconds();
 		
 		//process input;
-		//LOG(LOG_DEBUG1) << "Process input...";
+		LOG(LOG_DEBUG4) << "Process input...";
 		Event e;
-		while (subModule_Window->getNextEvent(e))
+		while (sWindow->getNextEvent(e))
 		{
-			LOG(LOG_DEBUG2) << "Event window : " << e.key;
+			LOG(LOG_DEBUG3) << "Event window : " << e.key;
 		}
 
 		while (lag >= ms_per_update)
 		{
 			//Update gp
-			//Sleep(4);
 			lag -= ms_per_update;
-			//LOG(LOG_DEBUG4) << "Upate...lag : " << lag.fSeconds();
+			LOG(LOG_DEBUG4) << "Upate...lag : " << lag.fSeconds();
 		}
 
-		//LOG(LOG_DEBUG1) << "render";
+		LOG(LOG_DEBUG3) << "render";
 		//render(lag/ms_per_update)
-		//Sleep(8);
 	}
 }

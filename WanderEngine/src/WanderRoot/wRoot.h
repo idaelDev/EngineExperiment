@@ -35,6 +35,6 @@ namespace Wander
 		void run();
 
 	private:
-		Window* subModule_Window;
+		Window* sWindow;
 	};
 }

@@ -122,7 +122,7 @@ namespace Wander
 	typedef Log<OutputPolicy> FLOG;
 
 #ifndef LOG_MAX_LEVEL
-#define LOG_MAX_LEVEL LOG_DEBUG4
+#define LOG_MAX_LEVEL LOG_DEBUG2
 #endif
 
 #define LOG(level) \

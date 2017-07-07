@@ -88,7 +88,6 @@ bool Window::open(std::string & title, size_t width, size_t height, size_t flags
 	WNDCLASSEX wc;
 	HWND hwnd;
 
-
 	//Step 1: Registering the Window Class
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = 0;
@@ -116,7 +115,7 @@ bool Window::open(std::string & title, size_t width, size_t height, size_t flags
 		"Window",
 		"The title of my window",
 		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, 240, 120,
+		CW_USEDEFAULT, CW_USEDEFAULT, width, height,
 		NULL, NULL, GetModuleHandle(NULL), NULL);
 
 	if (hwnd == NULL)
